@@ -3,10 +3,6 @@ package com.example.shopstock.presintation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.shopstock.domain.models.ItemEntity
-import com.example.shopstock.domain.useCases.BinarySearchByNameUseCase
-import com.example.shopstock.domain.useCases.GetItemsUseCase
-import com.example.shopstock.domain.useCases.MergeSortAscUseCase
-import com.example.shopstock.domain.useCases.QuickSortDescUseCase
 import com.example.shopstock.domain.useCases.UseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,8 +17,8 @@ class ItemViewModel @Inject constructor(
     private val _items = MutableStateFlow<List<ItemEntity>>(emptyList())
     val items: StateFlow<List<ItemEntity>> = _items
 
-    private val _searchResult = MutableStateFlow<ItemEntity?>(null)
-    val searchResult: StateFlow<ItemEntity?> = _searchResult
+    private val _searchResult = MutableStateFlow<List<ItemEntity?>>(listOf())
+    val searchResult: MutableStateFlow<List<ItemEntity?>> = _searchResult
 
     init {
         viewModelScope.launch {
