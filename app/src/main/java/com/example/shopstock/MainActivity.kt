@@ -7,12 +7,33 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -47,9 +68,8 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
 @Composable
-fun ItemScreen(viewModel: ItemViewModel = hiltViewModel(), modifier: Modifier) {
+fun ItemScreen(viewModel: ItemViewModel = hiltViewModel(),modifier: Modifier) {
     val items by viewModel.items.collectAsState()
     val searchResult by viewModel.searchResult.collectAsState()
 
@@ -73,7 +93,13 @@ fun ItemScreen(viewModel: ItemViewModel = hiltViewModel(), modifier: Modifier) {
         Spacer(modifier = Modifier.height(16.dp))
 
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-//            SearchTextField(searchText = searchText, onTextChange = { searchText = it })
+            TextField(
+                value = searchText, onValueChange = {
+                    searchText = it
+                },
+                label = { Text("Search by name") },
+                modifier = Modifier.weight(1f)
+            )
             Spacer(modifier = Modifier.width(8.dp))
             Button(onClick = { viewModel.searchByName(searchText) }) {
                 Text("Search")
@@ -82,9 +108,9 @@ fun ItemScreen(viewModel: ItemViewModel = hiltViewModel(), modifier: Modifier) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Show search result if exists
-        searchResult?.let { list ->
-            list.forEach {
+        // عرض نتيجة البحث لو موجودة
+        searchResult?.let { item ->
+            item.forEach {
                 Text("${it?.name}: ${it?.itemLeftInInventory}")
                 Divider()
             }
@@ -99,23 +125,6 @@ fun ItemScreen(viewModel: ItemViewModel = hiltViewModel(), modifier: Modifier) {
     }
 }
 
-//@Composable
-//fun SearchTextField(searchText: String, onTextChange: (String) -> Unit) {
-//    TextField(
-//        value = searchText,
-//        onValueChange = onTextChange,
-//        placeholder = { Text("Search...") },
-//        leadingIcon = { Icon(Icons.Filled.Search, contentDescription = "Search") },
-//        colors = TextFieldDefaults.textFieldColors(
-//            containerColor = MaterialTheme.colorScheme.surface,
-//            focusedIndicatorColor = Color.Transparent,
-//            unfocusedIndicatorColor = Color.Transparent
-//        ),
-//        singleLine = true,
-//        modifier = Modifier.fillMaxWidth()
-//    )
-//}
-
 @Preview(showBackground = true)
 @Composable
 fun ProductItem() {
@@ -123,27 +132,21 @@ fun ProductItem() {
         modifier = Modifier
             .fillMaxWidth()
             .border(
-                width = 1.dp,
-                color = Color(0xffe8e8e8),
-                shape = RoundedCornerShape(16.dp)
+                width = 1.dp, color = Color(0xffe8e8e8), shape = RoundedCornerShape(16.dp)
             ),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {
         Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(5.dp)
+            modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(5.dp)
         ) {
-            Text(
-                text = "Name",
-                style = TextStyle(
-                    color = Color(0xff2e2e2e),
-                    fontFamily = Alexandria,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp
-                )
-            )
+            Text(text = "Name", style = TextStyle(
+                color = Color(0xff2e2e2e),
+                fontFamily = Alexandria,
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+            ))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.dollar_sign),
@@ -152,27 +155,67 @@ fun ProductItem() {
                 )
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
-                    text = "Price",
-                    style = TextStyle(
+                    text = "Price", style = TextStyle(
                         color = Color(0xff666666),
                         fontFamily = Alexandria,
                         fontWeight = FontWeight.Medium,
-                        fontSize = 15.sp
+                        fontSize = 15.sp,
                     )
                 )
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
-                    "$199.5",
-                    style = TextStyle(
+                    "$199.5", style = TextStyle(
                         color = Color(0xff9e9e9e),
                         fontFamily = Alexandria,
-                        fontSize = 12.sp
+                        fontSize = 12.sp,
                     )
                 )
             }
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.archive),
+                    contentDescription = "dollar sign",
+                    modifier = Modifier.size(CardIconSize)
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(
+                    text = "In Stock ", style = TextStyle(
+                        color = Color(0xff666666),
+                        fontFamily = Alexandria,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 15.sp,
+                    )
+                )
+                InStock()
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.predict_selling),
+                    contentDescription = "Predict Chart",
+                    modifier = Modifier.size(CardIconSize)
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(
+                    text = "Predict Sales (Tomorrow) ", style = TextStyle(
+                        color = Color(0xff666666),
+                        fontFamily = Alexandria,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 15.sp,
+                    )
+                )
+            }
+
+
         }
+
+
     }
 }
+
 
 @Composable
 @Preview(showBackground = false)
@@ -180,6 +223,7 @@ fun InStock() {
     Box(
         modifier = Modifier,
         contentAlignment = Alignment.Center
+
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -187,17 +231,15 @@ fun InStock() {
                 .border(
                     width = 1.dp,
                     color = BorderCritical,
-                    shape = RoundedCornerShape(30.dp)
+                    shape = RoundedCornerShape(30.dp)  // Same shape as background
                 )
                 .background(
-                    color = BackgroundCritical,
-                    shape = RoundedCornerShape(30.dp)
+                    color = BackgroundCritical, shape = RoundedCornerShape(30.dp) // Rounded corners
                 )
-                .padding(horizontal = SmallHorizontalPadding, SmallVerticalPadding)
+                .padding(horizontal = SmallHorizontalPadding, SmallVerticalPadding),
         ) {
             Text(
-                text = "20/60 (37%)",
-                style = TextStyle(
+                text = "20/60 (37%) ", style = TextStyle(
                     fontSize = 8.sp,
                     fontFamily = Alexandria,
                     color = Color(0xff871515),
@@ -210,5 +252,11 @@ fun InStock() {
                 modifier = Modifier.size(11.dp)
             )
         }
+
+
     }
+
 }
+
+
+
