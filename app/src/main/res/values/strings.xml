@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">ShopStock</string>
+    <string name="predict_sales_tomorrow">"Predict Sales (Tomorrow) "</string>
+    <string name="predict_chart_image">Predict Chart</string>
+    <string name="price">Price</string>
+    <string name="dollar_sign">dollar sign</string>
+    <string name="archive_image">Archive Image</string>
+    <string name="in_stock">"In Stock "</string>
+    <string name="search">Search...</string>
+    <string name="clear_icon">Clear</string>
 </resources>

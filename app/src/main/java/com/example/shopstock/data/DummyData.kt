@@ -3,79 +3,58 @@ package com.example.shopstock.data
 import com.example.shopstock.domain.models.ItemEntity
 
 object DummyData {
-    val list=listOf(
-
-        ItemEntity(
-            name = "Apple",
-            price = 2.0,
-            soldLast7Days = listOf(5, 3, 7, 2, 6, 4, 8),
-            itemLeftInInventory = 10
-        ),
-        ItemEntity(name = "Banana", price = 1.5, soldLast7Days = listOf(2,1,3,5,4,6,2), itemLeftInInventory = 7),
-
-        ItemEntity(
-            name = "Apple",
-            price = 2.0,
-            soldLast7Days = listOf(5, 3, 7, 2, 6, 4, 8),
-            itemLeftInInventory = 10
-        ),
-        ItemEntity(name = "Banana", price = 1.5, soldLast7Days = listOf(2,1,3,5,4,6,2), itemLeftInInventory = 7),
-
-        ItemEntity(
-            name = "Apple",
-            price = 2.0,
-            soldLast7Days = listOf(5, 3, 7, 2, 6, 4, 8),
-            itemLeftInInventory = 10
-        ),
-        ItemEntity(name = "Banana", price = 1.5, soldLast7Days = listOf(2,1,3,5,4,6,2), itemLeftInInventory = 7),
-
-        ItemEntity(
-            name = "Apple",
-            price = 2.0,
-            soldLast7Days = listOf(5, 3, 7, 2, 6, 4, 8),
-            itemLeftInInventory = 10
-        ),
-        ItemEntity(name = "Banana", price = 1.5, soldLast7Days = listOf(2,1,3,5,4,6,2), itemLeftInInventory = 7),
-
-        ItemEntity(
-            name = "Apple",
-            price = 2.0,
-            soldLast7Days = listOf(5, 3, 7, 2, 6, 4, 8),
-            itemLeftInInventory = 10
-        ),
-        ItemEntity(name = "Banana", price = 1.5, soldLast7Days = listOf(2,1,3,5,4,6,2), itemLeftInInventory = 7),
-
-        ItemEntity(
-            name = "Apple",
-            price = 2.0,
-            soldLast7Days = listOf(5, 3, 7, 2, 6, 4, 8),
-            itemLeftInInventory = 10
-        ),
-        ItemEntity(name = "Banana", price = 1.5, soldLast7Days = listOf(2,1,3,5,4,6,2), itemLeftInInventory = 7),
-
-        ItemEntity(
-            name = "Apple",
-            price = 2.0,
-            soldLast7Days = listOf(5, 3, 7, 2, 6, 4, 8),
-            itemLeftInInventory = 10
-        ),
-        ItemEntity(name = "Banana", price = 1.5, soldLast7Days = listOf(2,1,3,5,4,6,2), itemLeftInInventory = 7),
-
-        ItemEntity(
-            name = "Apple",
-            price = 2.0,
-            soldLast7Days = listOf(5, 3, 7, 2, 6, 4, 8),
-            itemLeftInInventory = 10
-        ),
-        ItemEntity(name = "Banana", price = 1.5, soldLast7Days = listOf(2,1,3,5,4,6,2), itemLeftInInventory = 7),
-
-        ItemEntity(
-            name = "Apple",
-            price = 2.0,
-            soldLast7Days = listOf(5, 3, 7, 2, 6, 4, 8),
-            itemLeftInInventory = 10
-        ),
-        ItemEntity(name = "Banana", price = 1.5, soldLast7Days = listOf(2,1,3,5,4,6,2), itemLeftInInventory = 7),
-
+    val list = listOf(
+        ItemEntity(1, "Apple", 100, 25.5, listOf(15, 10, 12, 8, 7, 9, 8)),
+        ItemEntity(2, "Banana", 300, 100.0, listOf(5, 4, 3, 4, 5, 3, 4)),
+        ItemEntity(3, "Orange", 150, 38.0, listOf(5, 2, 2, 1, 3, 8, 9)),
+        ItemEntity(4, "Mango", 100, 421.5, listOf(12, 10, 11, 9, 8, 10, 11)),
+        ItemEntity(5, "Grapes", 300, 53.0, listOf(20, 22, 25, 24, 23, 21, 18)),
+        ItemEntity(6, "Pineapple", 280, 77.0, listOf(0, 8, 3, 3, 9, 7, 2)),
+        ItemEntity(7, "Watermelon", 160, 46.5, listOf(12, 10, 9, 11, 8, 7, 5)),
+        ItemEntity(8, "Strawberry", 600, 48.0, listOf(40, 35, 38, 36, 39, 37, 34)),
+        ItemEntity(9, "Blueberry", 300, 94.0, listOf(20, 18, 15, 17, 16, 19, 20)),
+        ItemEntity(10, "Peach", 290, 44.0, listOf(0, 5, 8, 7, 7, 17, 8)),
+        ItemEntity(11, "Kiwi", 140, 37.5, listOf(3, 2, 2, 12, 2, 16, 8)),
+        ItemEntity(12, "Pear", 320, 24.8, listOf(25, 22, 20, 23, 19, 21,2 )),
+        ItemEntity(13, "Lemon", 300, 1.0, listOf(5, 4, 20, 5, 12, 20, 9)),
+        ItemEntity(14, "Lime", 220, 11.1, listOf(0, 5, 8, 4, 7, 6, 9)),
+        ItemEntity(15, "Plum", 600, 38.2, listOf(40, 38, 42, 36, 35, 39, 37)),
+        ItemEntity(16, "Cherry", 400, 10.0, listOf(50, 48, 52, 47, 46, 49, 45)),
+        ItemEntity(17, "Apricot", 300, 40.3, listOf(30, 28, 25, 27, 24, 26, 29)),
+        ItemEntity(18, "Papaya", 250, 180.7, listOf(20, 18, 15, 14, 12, 16, 13)),
+        ItemEntity(19, "Guava", 120, 60.4, listOf(5, 2, 2, 3, 9, 1, 18)),
+        ItemEntity(20, "Avocado", 250, 120.5, listOf(10, 9, 5, 0, 7, 7, 5)),
+        ItemEntity(21, "Tomato", 400, 15.3, listOf(10, 10, 30, 20, 10, 10, 0)),
+        ItemEntity(22, "Cucumber", 600, 18.0, listOf(90, 85, 88, 80, 83, 87, 82)),
+        ItemEntity(23, "Carrot", 280, 10.9, listOf(10, 5, 8, 10, 5, 6, 2)),
+        ItemEntity(24, "Pepper", 210, 80.0, listOf(10, 8, 2, 7, 6, 9, 5)),
+        ItemEntity(25, "Onion", 500, 17.7, listOf(60, 10, 30, 40, 52, 75, 90)),
+        ItemEntity(26, "Potato", 600, 25.6, listOf(90, 80, 90, 95, 85, 75, 80)),
+        ItemEntity(27, "Spinach", 260, 10.1, listOf(8, 5, 8, 7, 7, 7, 9)),
+        ItemEntity(28, "Lettuce", 240, 19.5, listOf(5, 8,2, 9,7, 4, 8)),
+        ItemEntity(29, "Cabbage", 320, 180.2, listOf(8, 5, 7, 7, 7, 7, 1)),
+        ItemEntity(30, "Broccoli", 180, 33.4, listOf(0,8, 4, 6, 5, 9, 3)),
+        ItemEntity(31, "Cauliflower", 400, 35.3, listOf(30, 28, 25, 27, 24, 26, 29)),
+        ItemEntity(32, "Zucchini", 700, 277.2, listOf(50, 48, 52, 49, 47, 46, 48)),
+        ItemEntity(33, "Eggplant", 190, 27.9, listOf(0, 5, 5, 5, 5, 5, 5)),
+        ItemEntity(34, "Pumpkin", 200, 444.6, listOf(30, 28, 25, 27, 24, 26, 29)),
+        ItemEntity(35, "Corn", 220, 28.7, listOf(5, 8, 2, 9, 4, 6, 8)),
+        ItemEntity(36, "Beetroot", 270, 190.8, listOf(10, 9, 5, 0, 5, 7, 5)),
+        ItemEntity(37, "Radish", 230, 500.1, listOf(8, 7, 2, 9, 7, 8, 6)),
+        ItemEntity(38, "Celery", 200, 154.4, listOf(5,14, 15, 9, 14, 6, 8)),
+        ItemEntity(39, "Garlic", 350, 18.5, listOf(10, 2, 8, 8, 5, 7, 6)),
+        ItemEntity(40, "Ginger", 290, 20.9, listOf(10, 5, 8, 3, 7, 6, 2)),
+        ItemEntity(41, "Milk", 400, 95.0, listOf(50, 40, 30, 20, 10, 10, 90)),
+        ItemEntity(42, "Cheese", 180, 20.0, listOf(3, 28, 2, 27, 24, 26, 9)),
+        ItemEntity(43, "Yogurt", 700, 80.5, listOf(100, 90, 85, 80, 75, 70, 65)),
+        ItemEntity(44, "Butter", 200, 80.5, listOf(2, 10, 10, 17, 22, 11, 12)),
+        ItemEntity(45, "Eggs", 4000, 180.8, listOf(300, 310, 295, 289, 305, 299, 302)),
+        ItemEntity(46, "Bread", 250, 184.5, listOf(10, 8, 20, 15, 15, 75, 9)),
+        ItemEntity(47, "Rice", 900, 287.0, listOf(30,40, 60, 35, 35, 48, 52)),
+        ItemEntity(48, "Pasta", 550, 20.0, listOf(50, 55, 48, 52, 49, 51, 47)),
+        ItemEntity(49, "Sugar", 800, 10.0, listOf(78,60, 12, 11, 10, 80, 50)),
+        ItemEntity(50, "Salt", 1100, 10.0, listOf(78,60, 12, 11, 10, 80, 50))
     )
+
+
 }

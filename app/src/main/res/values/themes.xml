@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="Theme.ShopStock" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Optional: override colors here -->
+        <!-- Primary and background colors -->
+        <item name="colorPrimary">@android:color/black</item>
+        <item name="colorPrimaryVariant">@android:color/black</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+        <item name="colorOnBackground">@android:color/white</item>
+        <item name="colorSurface">@android:color/white</item>
+        <item name="colorOnSurface">@android:color/black</item>
 
-    <style name="Theme.ShopStock" parent="android:Theme.Material.Light.NoActionBar" />
+        <!-- Accent color (for buttons, indicators, etc.) -->
+        <item name="colorAccent">@android:color/black</item>
+    </style>
 </resources>

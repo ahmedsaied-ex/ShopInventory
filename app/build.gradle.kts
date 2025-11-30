@@ -49,7 +49,6 @@ android {
 kapt {
     correctErrorTypes = true
 }
-
 dependencies {
     // Core Android
     implementation("androidx.core:core-ktx:1.12.0")
@@ -57,7 +56,7 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.9.0")
 
     // Compose BOM (controls versions for all Compose artifacts)
-    implementation(platform("androidx.compose:compose-bom:2025.10.00"))
+    implementation(platform("androidx.compose:compose-bom:2024.09.00"))
 
     // Compose UI & Material3
     implementation("androidx.compose.ui:ui")
@@ -66,18 +65,22 @@ dependencies {
     implementation("androidx.compose.foundation:foundation")
     implementation("androidx.compose.material3:material3")
 
+    // Material icons (needed for Icons.Filled.Search)
+    implementation("androidx.compose.material:material-icons-extended")
+    implementation(libs.material)
+
     // Compose Tooling (debug)
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     // Compose Testing
-    androidTestImplementation(platform("androidx.compose:compose-bom:2025.10.00"))
+    androidTestImplementation(platform("androidx.compose:compose-bom:2024.09.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
 
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.8.0")
 
-    // Room
+    // Room (keep your versions if you intentionally use alpha)
     implementation("androidx.room:room-runtime:2.7.0-alpha01")
     kapt("androidx.room:room-compiler:2.7.0-alpha01")
     implementation("androidx.room:room-ktx:2.7.0-alpha01")

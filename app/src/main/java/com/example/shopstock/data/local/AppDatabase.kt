@@ -7,7 +7,7 @@ import com.example.shopstock.domain.models.ItemEntity
 
 @Database(
     entities = [ItemEntity::class],
-    version = 2,
+    version = 1,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
