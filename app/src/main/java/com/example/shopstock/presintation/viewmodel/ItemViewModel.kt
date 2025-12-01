@@ -1,16 +1,18 @@
-package com.example.shopstock.presintation
+package com.example.shopstock.presintation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.shopstock.domain.models.ItemEntity
-import com.example.shopstock.domain.repository.ItemRepository
 import com.example.shopstock.domain.useCases.UseCases
+import com.example.shopstock.helpers.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.collections.emptyList
+
 @HiltViewModel
 class ItemViewModel @Inject constructor(
     private val useCases: UseCase
@@ -38,20 +40,29 @@ class ItemViewModel @Inject constructor(
 
     private fun loadItems() {
         viewModelScope.launch {
-            _isLoading.value = true
-            _error.value = null
+            useCases()   // operator invoke
+                .collect { result ->
+                    when (result) {
+                        is Resource.Loading -> {
+                            _isLoading.value = true
+                            _error.value = null
+                        }
 
-            try {
-                delay(2000)
-                val list = useCases.getItems()
-                _initList.value = list
-                _items.value = list
-            } catch (e: Exception) {
-                _error.value = e.message ?: "An unknown error occurred"
-                _items.value = emptyList()
-            } finally {
-                _isLoading.value = false
-            }
+                        is Resource.Success -> {
+                            _isLoading.value = false
+                            _error.value = null
+
+                            _initList.value = result.data
+                            _items.value = applyCurrentSort(result.data)
+                        }
+
+                        is Resource.Error -> {
+                            _isLoading.value = false
+                            _error.value = result.message
+                            _items.value = emptyList()
+                        }
+                    }
+                }
         }
     }
 
@@ -87,10 +98,13 @@ class ItemViewModel @Inject constructor(
     }
 }
 
+
 class UseCase @Inject constructor(
     private val useCases: UseCases
 ) {
-    suspend fun getItems(): List<ItemEntity> = useCases.getItems()
+    suspend operator fun invoke(): Flow<Resource<List<ItemEntity>>> {
+        return useCases.getItems()
+    }
 
     fun sortAsc(items: List<ItemEntity>): List<ItemEntity> = useCases.mergeSortAsc(items)
 
@@ -105,4 +119,3 @@ class UseCase @Inject constructor(
         return useCases.binarySearchByName(items, query)
     }
 }
-
