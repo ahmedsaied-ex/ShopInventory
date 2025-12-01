@@ -5,6 +5,7 @@ import javax.inject.Inject
 
 class MergeSortAscUseCase @Inject constructor() {
     operator fun invoke(items: List<ItemEntity>): List<ItemEntity> {
+        if (items.isNullOrEmpty()) return emptyList()
         if (items.size <= 1) return items
         val middle = items.size / 2
         val left = invoke(items.subList(0, middle))
@@ -23,8 +24,8 @@ class MergeSortAscUseCase @Inject constructor() {
                 result.add(right[r++])
             }
         }
-        while (l < left.size) result.add(left[l++])
-        while (r < right.size) result.add(right[r++])
+        result.addAll(left.subList(l, left.size))
+        result.addAll(right.subList(r, right.size))
         return result
     }
 }

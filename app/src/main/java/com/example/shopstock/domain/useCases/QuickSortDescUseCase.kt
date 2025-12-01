@@ -5,6 +5,7 @@ import javax.inject.Inject
 
 class QuickSortDescUseCase @Inject constructor() {
     operator fun invoke(items: MutableList<ItemEntity>, low: Int = 0, high: Int = items.size - 1) {
+        if (items.isEmpty()) return
         if (low < high) {
             val pi = partition(items, low, high)
             invoke(items, low, pi - 1)

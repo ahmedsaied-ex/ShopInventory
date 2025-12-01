@@ -8,6 +8,7 @@ import com.example.shopstock.data.local.ItemLocalDataSource
 import com.example.shopstock.data.repository.ItemRepositoryImpl
 import com.example.shopstock.domain.repository.ItemRepository
 import com.example.shopstock.domain.useCases.*
+import com.example.shopstock.helpers.Const.ITEMs_DB
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,7 +27,7 @@ object AppModule {
         Room.databaseBuilder(
             context,
             AppDatabase::class.java,
-            "items_db"
+            ITEMs_DB
         ).build()
 
     @Provides
@@ -62,6 +63,10 @@ object AppModule {
     @Singleton
     fun provideBinarySearchByNameUseCase() = BinarySearchByNameUseCase()
 
+    @Provides
+    @Singleton
+    fun provideSortItemsByNameUseCase() = SortItemsByNameUseCase()
+
     // -------- Bundle all use cases --------
     @Provides
     @Singleton
@@ -69,11 +74,13 @@ object AppModule {
         getItemsUseCase: GetItemsUseCase,
         mergeSortAscUseCase: MergeSortAscUseCase,
         quickSortDescUseCase: QuickSortDescUseCase,
-        binarySearchByNameUseCase: BinarySearchByNameUseCase
+        binarySearchByNameUseCase: BinarySearchByNameUseCase,
+        sortItemsByNameUseCase: SortItemsByNameUseCase
     ): UseCases = UseCases(
         getItems = getItemsUseCase,
         mergeSortAsc = mergeSortAscUseCase,
         quickSortDesc = quickSortDescUseCase,
-        binarySearchByName = binarySearchByNameUseCase
+        binarySearchByName = binarySearchByNameUseCase,
+        sortAsc = sortItemsByNameUseCase
     )
 }

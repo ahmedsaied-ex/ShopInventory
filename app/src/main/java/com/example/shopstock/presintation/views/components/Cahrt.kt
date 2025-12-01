@@ -8,19 +8,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.nativeCanvas
-import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.shopstock.R
 import com.example.shopstock.domain.models.ChartPoint
 import com.example.shopstock.domain.models.ChartStyle
+import com.example.shopstock.helpers.BigHeight
+import com.example.shopstock.helpers.MediumSpacerHeight
 
-// Data layer - abstractions
-
-// Single responsibility: Calculate chart coordinates
 class ChartCoordinateCalculator {
     fun calculatePoints(
         sales: List<Int>,
@@ -41,7 +40,6 @@ class ChartCoordinateCalculator {
     }
 }
 
-// Single responsibility: Draw chart components
 class ChartRenderer(private val style: ChartStyle) {
     fun drawArea(drawScope: DrawScope, points: List<ChartPoint>) {
         val areaPath = Path().apply {
@@ -81,11 +79,18 @@ class ChartRenderer(private val style: ChartStyle) {
     }
 }
 
-// Open for extension: Main composable now delegates responsibilities
 @Composable
 fun SalesLineChart(
     sales: List<Int>,
-    xAxisLabels: List<String> = listOf("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"),
+    xAxisLabels: List<String> = listOf(
+        stringResource(R.string.sunday),
+        stringResource(R.string.monday),
+        stringResource(R.string.tueday),
+        stringResource(R.string.wednesday),
+        stringResource(R.string.thursday),
+        stringResource(R.string.friday),
+        stringResource(R.string.saturday)
+    ),
     style: ChartStyle = ChartStyle(),
     calculator: ChartCoordinateCalculator = ChartCoordinateCalculator(),
     renderer: ChartRenderer = ChartRenderer(style)
@@ -93,8 +98,9 @@ fun SalesLineChart(
     Canvas(
         modifier = Modifier
             .fillMaxWidth()
-            .height(100.dp)
-            .padding(bottom = 16.dp)
+            .height(BigHeight)
+            .padding(bottom = MediumSpacerHeight
+            )
     ) {
         val points = calculator.calculatePoints(sales, size.width, size.height)
 

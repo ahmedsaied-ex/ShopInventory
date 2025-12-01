@@ -12,6 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.shopstock.helpers.BannerImageSize
+import com.example.shopstock.helpers.CardElevation
+import com.example.shopstock.helpers.RoundedCorners
 
 @Composable
 fun SearchAndSortCard(
@@ -21,23 +24,23 @@ fun SearchAndSortCard(
     onSearchSubmit: (String) -> Unit,  // New parameter for search submit
     onSortSelected: (String) -> Unit
 ) {
-
     Card(
         colors = CardDefaults.cardColors(
             containerColor = Color.White, contentColor = Color.Black
         ),
-        shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(2.dp),
-        modifier = Modifier.fillMaxWidth()
+        shape = RoundedCornerShape(RoundedCorners),
+
+        elevation = CardDefaults.cardElevation(CardElevation),
+        modifier = Modifier.fillMaxWidth().padding(vertical = CardElevation)
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
+        Column(modifier = Modifier.padding(BannerImageSize)) {
             // Search bar
             SearchTextField(
                 searchedText = searchText,
                 onChanged = onSearchTextChange,
                 onSearchSubmit = onSearchSubmit  // Pass submit handler
             )
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(BannerImageSize))
             // Dropdown for sort options
             SortDropdown(
                 selectedOption = selectedOption, onOptionSelected = onSortSelected

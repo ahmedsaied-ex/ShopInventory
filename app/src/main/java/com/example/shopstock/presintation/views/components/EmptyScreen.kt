@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import com.example.shopstock.R
 import com.example.shopstock.helpers.BigVerticalPadding
@@ -33,11 +34,13 @@ fun EmptyScreen() {
                 modifier = Modifier.size(EmptyListImageSize)
             )
             Spacer(modifier = Modifier.height(MediumSpacerHeight))
-            Text("No inventory items found", style = TextStyle(
-                color = ItemContentTextColor,
-                fontFamily = Alexandria,
-                fontSize = ItemTextFontSize
-            ))
+            Text(
+                text = stringResource(R.string.no_inventory_items_found), style = TextStyle(
+                    color = ItemContentTextColor,
+                    fontFamily = Alexandria,
+                    fontSize = ItemTextFontSize
+                )
+            )
         }
     }
 }

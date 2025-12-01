@@ -2,6 +2,7 @@ package com.example.shopstock.presintation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.shopstock.domain.UseCase
 import com.example.shopstock.domain.models.ItemEntity
 import com.example.shopstock.domain.useCases.UseCases
 import com.example.shopstock.helpers.Resource
@@ -77,16 +78,13 @@ class ItemViewModel @Inject constructor(
     }
 
     fun search(query: String) {
-        val filtered = useCases.searchByName(_initList.value, query)
+        val sortedListForSearch :List<ItemEntity> = useCases.resetSort(_initList.value)
+        val filtered = useCases.searchByName(sortedListForSearch, query)
         _items.value = applyCurrentSort(filtered)
     }
 
     fun retry() {
         loadItems()
-    }
-
-    fun clearError() {
-        _error.value = null
     }
 
     private fun applyCurrentSort(list: List<ItemEntity>): List<ItemEntity> {
@@ -95,27 +93,5 @@ class ItemViewModel @Inject constructor(
             SortOrder.DESC -> useCases.sortDesc(list)
             SortOrder.NONE -> list
         }
-    }
-}
-
-
-class UseCase @Inject constructor(
-    private val useCases: UseCases
-) {
-    suspend operator fun invoke(): Flow<Resource<List<ItemEntity>>> {
-        return useCases.getItems()
-    }
-
-    fun sortAsc(items: List<ItemEntity>): List<ItemEntity> = useCases.mergeSortAsc(items)
-
-    fun sortDesc(items: List<ItemEntity>): List<ItemEntity> {
-        val mutableList = items.toMutableList()
-        useCases.quickSortDesc(mutableList)
-        return mutableList
-    }
-
-    fun searchByName(items: List<ItemEntity>, query: String): List<ItemEntity> {
-        if (query.isBlank()) return items
-        return useCases.binarySearchByName(items, query)
     }
 }

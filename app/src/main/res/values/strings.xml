@@ -8,4 +8,13 @@
     <string name="in_stock">"In Stock "</string>
     <string name="search">Search...</string>
     <string name="clear_icon">Clear</string>
+    <string name="sunday">Sun</string>
+    <string name="monday">Mon</string>
+    <string name="tueday">Tue</string>
+    <string name="wednesday">Wed</string>
+    <string name="thursday">Thu</string>
+    <string name="friday">Fri</string>
+    <string name="saturday">Sat</string>
+    <string name="something_went_wrong">Something went wrong : %1$s</string>
+    <string name="no_inventory_items_found">No inventory items found</string>
 </resources>

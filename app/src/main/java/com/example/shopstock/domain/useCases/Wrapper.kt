@@ -7,5 +7,6 @@ data class UseCases @Inject constructor(
     val getItems: GetItemsUseCase,
     val mergeSortAsc: MergeSortAscUseCase,
     val quickSortDesc: QuickSortDescUseCase,
-    val binarySearchByName: BinarySearchByNameUseCase
+    val binarySearchByName: BinarySearchByNameUseCase,
+    val sortAsc: SortItemsByNameUseCase,
 )

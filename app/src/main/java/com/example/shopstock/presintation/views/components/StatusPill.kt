@@ -11,24 +11,24 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.shopstock.R
 import com.example.shopstock.domain.models.ItemEntity
+import com.example.shopstock.helpers.BannerImageSize
 import com.example.shopstock.helpers.BorderThickness
+import com.example.shopstock.helpers.RawSpacedBy
 import com.example.shopstock.helpers.RoundedCorners
+import com.example.shopstock.helpers.SmallHorizontalPadding
+import com.example.shopstock.helpers.SmallVerticalPadding
 import com.example.shopstock.helpers.StockNumberFont
 import com.example.shopstock.helpers.toStatusRaw
-
 
 @Composable
 fun InStockBanner( item: ItemEntity) {
@@ -49,7 +49,7 @@ fun InStockBanner( item: ItemEntity) {
                     color = itemState.backgroundColor,
                     shape = androidx.compose.foundation.shape.RoundedCornerShape(RoundedCorners)
                 )
-                .padding(horizontal = 6.dp, vertical = 2.dp)
+                .padding(horizontal = SmallHorizontalPadding, vertical = SmallVerticalPadding)
         ) {
             Text(
                 text = item.inventoryStatus,
@@ -59,11 +59,11 @@ fun InStockBanner( item: ItemEntity) {
                     fontWeight = FontWeight.SemiBold
                 )
             )
-            Spacer(modifier = Modifier.width(4.dp))
+            Spacer(modifier = Modifier.width(RawSpacedBy))
             Image(
                 painter = painterResource(itemState.icon),
-                contentDescription = "",
-                modifier = Modifier.size(16.dp)
+                contentDescription = "Status Image",
+                modifier = Modifier.size(BannerImageSize)
             )
         }
     }
@@ -73,14 +73,9 @@ fun InStockBanner( item: ItemEntity) {
 @Composable
 fun PreviewInStockBanner() {
     Column {
-        InStockBanner(  item =ItemEntity(
-            id = 41,
-            name = "Milk",
-            totalQuantity = 400,
-            price = 2.0,
-            soldLast7Days = listOf(9, 8, 9, 8, 9, 8, 9),
-
-        ) )
+        InStockBanner(
+            item =  ItemEntity(1, "Apple", 100, 25.5, listOf(15, 10, 12, 8, 7, 9, 8))
+        )
         Spacer(modifier = Modifier.height(8.dp))
         InStockBanner(  item =ItemEntity(
             id = 41,
@@ -91,13 +86,9 @@ fun PreviewInStockBanner() {
 
         ) )
         Spacer(modifier = Modifier.height(8.dp))
-        InStockBanner(  item =ItemEntity(
-            id = 41,
-            name = "Milk",
-            totalQuantity = 400,
-            price = 2.0,
-            soldLast7Days = listOf(9, 8, 9, 8, 9, 8, 9),
+        InStockBanner(
+            item = ItemEntity(16, "Cherry", 400, 10.0, listOf(50, 48, 52, 47, 46, 49, 45)),
 
-        ) )
+            )
     }
 }

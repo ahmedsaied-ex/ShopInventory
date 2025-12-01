@@ -3,17 +3,22 @@ package com.example.shopstock.domain.useCases
 import com.example.shopstock.domain.models.ItemEntity
 import javax.inject.Inject
 
+
+class SortItemsByNameUseCase @Inject constructor() {
+    operator fun invoke(items: List<ItemEntity>): List<ItemEntity> {
+        return items.sortedBy { it.name.lowercase() }
+    }
+}
+
 class BinarySearchByNameUseCase @Inject constructor() {
     operator fun invoke(items: List<ItemEntity>, prefix: String): List<ItemEntity> {
-        val sortedItems = items.sortedBy { it.name.lowercase() }
-        // Binary search helper functions
         fun findFirstIndex(): Int {
             var left = 0
-            var right = sortedItems.size - 1
+            var right = items.size - 1
             var result = -1
             while (left <= right) {
                 val mid = left + (right - left) / 2
-                val name = sortedItems[mid].name.lowercase()
+                val name = items[mid].name.lowercase()
                 val target = prefix.lowercase()
                 when {
                     name.startsWith(target) -> {
@@ -29,11 +34,11 @@ class BinarySearchByNameUseCase @Inject constructor() {
 
         fun findLastIndex(): Int {
             var left = 0
-            var right = sortedItems.size - 1
+            var right = items.size - 1
             var result = -1
             while (left <= right) {
                 val mid = left + (right - left) / 2
-                val name = sortedItems[mid].name.lowercase()
+                val name = items[mid].name.lowercase()
                 val target = prefix.lowercase()
                 when {
                     name.startsWith(target) -> {
@@ -51,7 +56,7 @@ class BinarySearchByNameUseCase @Inject constructor() {
         val last = findLastIndex()
 
         return if (first != -1 && last != -1) {
-            sortedItems.subList(first, last + 1)
+            items.subList(first, last + 1)
         } else emptyList()
     }
 }

@@ -9,7 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
+import com.example.shopstock.helpers.CardElevation
+import com.example.shopstock.helpers.LoadingIndicatorSize
 
 
 @Composable
@@ -17,7 +18,7 @@ fun LoadingIndicator(){
     Column(Modifier.fillMaxSize(),verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
         CircularProgressIndicator(
             color = Color.Black,
-            strokeWidth = 8.dp, modifier = Modifier.size(70.dp)
+            strokeWidth =CardElevation, modifier = Modifier.size(LoadingIndicatorSize)
         )
     }
 }
