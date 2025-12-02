@@ -4,10 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.shopstock.domain.UseCase
 import com.example.shopstock.domain.models.ItemEntity
-import com.example.shopstock.domain.useCases.UseCases
 import com.example.shopstock.helpers.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -20,21 +18,14 @@ class ItemViewModel @Inject constructor(
 ) : ViewModel() {
 
     enum class SortOrder { NONE, ASC, DESC }
-
     private var currentSort = SortOrder.NONE
-
     private val _initList = MutableStateFlow<List<ItemEntity>>(emptyList())
-    val initList: StateFlow<List<ItemEntity>> = _initList
-
     private val _items = MutableStateFlow<List<ItemEntity>>(emptyList())
     val items: StateFlow<List<ItemEntity>> = _items
-
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
-
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error
-
     init {
         loadItems()
     }

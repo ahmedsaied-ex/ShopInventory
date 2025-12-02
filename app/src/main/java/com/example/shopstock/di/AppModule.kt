@@ -7,8 +7,19 @@ import com.example.shopstock.data.local.ItemDao
 import com.example.shopstock.data.local.ItemLocalDataSource
 import com.example.shopstock.data.repository.ItemRepositoryImpl
 import com.example.shopstock.domain.repository.ItemRepository
-import com.example.shopstock.domain.useCases.*
+import com.example.shopstock.domain.useCases.implementation.BinarySearchByNameUseCaseImpl
+import com.example.shopstock.domain.useCases.implementation.GetItemsUseCaseImpl
+import com.example.shopstock.domain.useCases.interfaces.IBinarySearchByNameUseCase
+import com.example.shopstock.domain.useCases.interfaces.IGetItemsUseCase
+import com.example.shopstock.domain.useCases.interfaces.IMergeSortAscUseCase
+import com.example.shopstock.domain.useCases.interfaces.IQuickSortDescUseCase
+import com.example.shopstock.domain.useCases.interfaces.ISortItemsByNameUseCase
+import com.example.shopstock.domain.useCases.implementation.MergeSortAscUseCaseImpl
+import com.example.shopstock.domain.useCases.implementation.QuickSortDescUseCaseImpl
+import com.example.shopstock.domain.useCases.implementation.SortItemsByNameUseCaseImpl
 import com.example.shopstock.helpers.Const.ITEMs_DB
+import com.example.shopstock.domain.useCases.UseCases
+
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,11 +45,13 @@ object AppModule {
     @Singleton
     fun provideItemDao(db: AppDatabase): ItemDao = db.itemDao()
 
+
     // -------- Data Source --------
     @Provides
     @Singleton
     fun provideLocalDataSource(dao: ItemDao): ItemLocalDataSource =
         ItemLocalDataSource(dao)
+
 
     // -------- Repository --------
     @Provides
@@ -46,36 +59,44 @@ object AppModule {
     fun provideItemRepository(localDataSource: ItemLocalDataSource): ItemRepository =
         ItemRepositoryImpl(localDataSource)
 
-    // -------- Use Cases --------
-    @Provides
-    @Singleton
-    fun provideGetItemsUseCase(repository: ItemRepository) = GetItemsUseCase(repository)
+
+    // -------- Use Cases Implementations --------
 
     @Provides
     @Singleton
-    fun provideMergeSortAscUseCase() = MergeSortAscUseCase()
+    fun provideMergeSortAscUseCase(): IMergeSortAscUseCase =
+        MergeSortAscUseCaseImpl()
 
     @Provides
     @Singleton
-    fun provideQuickSortDescUseCase() = QuickSortDescUseCase()
+    fun provideQuickSortDescUseCase(): IQuickSortDescUseCase =
+        QuickSortDescUseCaseImpl()
 
     @Provides
     @Singleton
-    fun provideBinarySearchByNameUseCase() = BinarySearchByNameUseCase()
+    fun provideBinarySearchByNameUseCase(): IBinarySearchByNameUseCase =
+        BinarySearchByNameUseCaseImpl()
 
     @Provides
     @Singleton
-    fun provideSortItemsByNameUseCase() = SortItemsByNameUseCase()
+    fun provideSortItemsByNameUseCase(): ISortItemsByNameUseCase =
+        SortItemsByNameUseCaseImpl()
 
-    // -------- Bundle all use cases --------
+    @Provides
+    @Singleton
+    fun provideGetItemsUseCase(repository: ItemRepository): IGetItemsUseCase =
+        GetItemsUseCaseImpl(repository)
+
+
+    // -------- Bundle UseCases --------
     @Provides
     @Singleton
     fun provideUseCases(
-        getItemsUseCase: GetItemsUseCase,
-        mergeSortAscUseCase: MergeSortAscUseCase,
-        quickSortDescUseCase: QuickSortDescUseCase,
-        binarySearchByNameUseCase: BinarySearchByNameUseCase,
-        sortItemsByNameUseCase: SortItemsByNameUseCase
+        getItemsUseCase: IGetItemsUseCase,
+        mergeSortAscUseCase: IMergeSortAscUseCase,
+        quickSortDescUseCase: IQuickSortDescUseCase,
+        binarySearchByNameUseCase: IBinarySearchByNameUseCase,
+        sortItemsByNameUseCase: ISortItemsByNameUseCase
     ): UseCases = UseCases(
         getItems = getItemsUseCase,
         mergeSortAsc = mergeSortAscUseCase,
